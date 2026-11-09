@@ -47,11 +47,10 @@ bool checkSorted(const vector<int>& arr)
 template <typename T>
 double test(T& sorter, const vector<int>& matrix)
 {
-    vector<int> arr = matrix;
     sorter.resetStats();
 
     auto start = chrono::high_resolution_clock::now();
-    sorter.sort(arr);
+    vector<int> arr = sorter.sort(matrix);
     auto end = chrono::high_resolution_clock::now();
     double ms = chrono::duration<double, milli>(end - start).count();
 

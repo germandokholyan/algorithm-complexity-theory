@@ -6,33 +6,37 @@ bool HoareSort::compare(int a, int b)
     return a < b;
 }
 
-void HoareSort::quickSort(std::vector<int>& arr, int left, int right)
+std::vector<int> HoareSort::quickSort(const std::vector<int>& arr)
 {
-    int i = left;
-    int j = right;
-    int pivot = arr[(left + right) / 2];
+    if (arr.size() <= 1)
+        return arr;
 
-    while (i <= j)
+    int middle = static_cast<int>(arr.size()) / 2;
+    int pivot = arr[middle];
+
+    std::vector<int> left;
+    std::vector<int> right;
+
+    for (int i = 0; i < static_cast<int>(arr.size()); i++)
     {
-        while (compare(arr[i], pivot))
-            i++;
-        while (compare(pivot, arr[j]))
-            j--;
-        if (i <= j)
-        {
-            int t = arr[i];
-            arr[i] = arr[j];
-            arr[j] = t;
-            swaps++;
-            i++;
-            j--;
-        }
+        if (i == middle)
+            continue;
+
+        if (compare(pivot, arr[i]))
+            right.push_back(arr[i]);
+        else
+            left.push_back(arr[i]);
+        swaps++;
     }
 
-    if (left < j)
-        quickSort(arr, left, j);
-    if (i < right)
-        quickSort(arr, i, right);
+    std::vector<int> result = quickSort(left);
+    std::vector<int> rightSorted = quickSort(right);
+
+    result.push_back(pivot);
+    for (int i = 0; i < static_cast<int>(rightSorted.size()); i++)
+        result.push_back(rightSorted[i]);
+
+    return result;
 }
 
 std::string HoareSort::getName() const
@@ -40,10 +44,9 @@ std::string HoareSort::getName() const
     return "Хоара";
 }
 
-void HoareSort::sort(std::vector<int>& arr)
+std::vector<int> HoareSort::sort(const std::vector<int>& arr)
 {
-    if (arr.size() > 1)
-        quickSort(arr, 0, static_cast<int>(arr.size()) - 1);
+    return quickSort(arr);
 }
 
 long long HoareSort::getComparisons() const

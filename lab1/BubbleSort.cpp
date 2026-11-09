@@ -11,8 +11,9 @@ std::string BubbleSort::getName() const
     return "Обычный (пузырёк)";
 }
 
-void BubbleSort::sort(std::vector<int>& arr)
+std::vector<int> BubbleSort::sort(const std::vector<int>& source)
 {
+    std::vector<int> arr = source;
     int n = static_cast<int>(arr.size());
     for (int i = 0; i < n - 1; i++)
     {
@@ -31,6 +32,7 @@ void BubbleSort::sort(std::vector<int>& arr)
         if (!changed)
             break;
     }
+    return arr;
 }
 
 long long BubbleSort::getComparisons() const

@@ -1,4 +1,4 @@
-#ifndef BUBBLESORT_H
+﻿#ifndef BUBBLESORT_H
 #define BUBBLESORT_H
 
 #include <vector>
@@ -13,7 +13,7 @@ private:
 
 public:
     std::string getName() const;
-    void sort(std::vector<int>& arr);
+    std::vector<int> sort(const std::vector<int>& arr);
     long long getComparisons() const;
     long long getSwaps() const;
     void resetStats();
