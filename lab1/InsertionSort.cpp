@@ -6,10 +6,10 @@ bool InsertionSort::compare(int a, int b)
     return a < b;
 }
 
-int InsertionSort::findPlace(const std::vector<int>& sorted, int value)
+int InsertionSort::findPlace(const std::vector<int>& sorted, int count, int value)
 {
     int low = 0;
-    int high = static_cast<int>(sorted.size()) - 1;
+    int high = count - 1;
 
     while (low <= high)
     {
@@ -30,13 +30,20 @@ std::string InsertionSort::getName() const
 
 std::vector<int> InsertionSort::sort(const std::vector<int>& arr)
 {
-    std::vector<int> sorted;
+    int n = static_cast<int>(arr.size());
+    std::vector<int> sorted(n);
+    int count = 0;
 
-    for (int i = 0; i < static_cast<int>(arr.size()); i++)
+    for (int i = 0; i < n; i++)
     {
-        int place = findPlace(sorted, arr[i]);
-        swaps += static_cast<int>(sorted.size()) - place;
-        sorted.insert(sorted.begin() + place, arr[i]);
+        int place = findPlace(sorted, count, arr[i]);
+        for (int j = count; j > place; j--)
+        {
+            sorted[j] = sorted[j - 1];
+            swaps++;
+        }
+        sorted[place] = arr[i];
+        count++;
     }
 
     return sorted;

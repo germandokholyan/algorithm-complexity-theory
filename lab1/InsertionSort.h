@@ -10,7 +10,7 @@ private:
     long long comparisons = 0;
     long long swaps = 0;
     bool compare(int a, int b);
-    int findPlace(const std::vector<int>& sorted, int value);
+    int findPlace(const std::vector<int>& sorted, int count, int value);
 
 public:
     std::string getName() const;
